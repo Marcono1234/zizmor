@@ -7,6 +7,7 @@
 
 const path = require('node:path')
 const fs = require('node:fs')
+// yaml library is installed by GitHub workflow
 const yaml = require('../../codeql-models-working-dir/node_modules/yaml')
 
 /** @type Map<string, string[]> */
@@ -107,10 +108,12 @@ function processModels(codeQlDir, outputFile) {
     // For now only include models manually curated by the CodeQL developers
     const onlyManualModels = true
 
+    let processedCount = 0
     for (const file of files) {
         if (file.isFile()) {
             const name = file.name
             if (name.endsWith('.yml') || name.endsWith('.yaml')) {
+                processedCount++
                 const filePath = path.join(file.parentPath, name)
                 try {
                     processYamlFile(filePath, relevantKinds, onlyManualModels)
@@ -121,9 +124,12 @@ function processModels(codeQlDir, outputFile) {
         }
     }
 
+    console.info(`Processed ${processedCount} files`)
+
     // Important: Data format must match the parsing logic in the Rust code
     const zizmorModelData = [...codeInjectionSinks].sort().map(entry => `${entry[0]}|${entry[1].join(',')}\n`).join('')
     fs.writeFileSync(outputFile, zizmorModelData)
+    console.info(`Wrote model data to file: ${outputFile}`)
 }
 
 processModels('codeql', '../code-injection-models.txt')
