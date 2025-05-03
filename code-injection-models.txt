@@ -4,6 +4,7 @@ appleboy/ssh-action|script
 azure/cli|inlineScript
 azure/powershell|inlineScript
 devorbitus/yq-action-output|cmd
+docker/build-push-action|context
 gautamkrishnar/blog-post-workflow|item_exec
 imjohnbo/issue-bot|body,linked-comments-previous-issue-text,linked-comments-new-issue-text
 lucasbento/auto-close-issues|issue-close-message
