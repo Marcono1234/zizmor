@@ -7,7 +7,7 @@
 
 const path = require('node:path')
 const fs = require('node:fs')
-const yaml = require('yaml')
+const yaml = require('../../codeql-models-working-dir/yaml')
 
 /** @type Map<string, string[]> */
 const codeInjectionSinks = new Map()

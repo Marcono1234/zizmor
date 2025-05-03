@@ -43,7 +43,7 @@ jobs:
           sparse-checkout: |
             actions/ql/lib/ext
 
-      - name: Update checksums file
+      - name: Update model file
         run: node ../.github/workflows/process-codeql-sink-models.js
         working-directory: codeql-models-working-dir
 
